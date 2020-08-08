@@ -1,5 +1,6 @@
 import React from "react";
-
+import Button from "./Button";
+import Select from "./Select";
 class App extends React.Component {
   constructor() {
     super();
@@ -8,12 +9,15 @@ class App extends React.Component {
       content: "Download",
     };
     this.selectRef = React.createRef();
+    this.tooltipRef = React.createRef();
   }
 
+  // function to find out what is selected in dropdown and set that state
   handleSelectChange = () => {
     this.setState({ direction: this.selectRef.current.value });
   };
 
+  // get the class to apply by a key
   getCurrentDirections(key) {
     switch (key) {
       case "1":
@@ -44,42 +48,35 @@ class App extends React.Component {
     }
   }
 
-  setDownloadContent = () => {
+  // when mouse exits sets from button opacity to 0 and change content to "download"
+  setMouseLeave = () => {
     this.setState({ content: "Download" });
+    this.tooltipRef.current.style.opacity = "0";
   };
 
-  setDownloadIcon = () => {
+  // when mouse enter sets from button opacity to 0.9 and change content to an icon
+  setMouseEnter = () => {
     this.setState({ content: <i className="fas fa-download"></i> });
+    this.tooltipRef.current.style.opacity = "0.9";
   };
 
+  // Render the app
   render() {
-    let directions = this.getCurrentDirections(this.state.direction);
-
     return (
       <div className="App">
-        <select
-          id="direction-dd"
-          ref={this.selectRef}
-          onChange={this.handleSelectChange}
-        >
-          <option value="1">Top</option>
-          <option value="2">Down</option>
-          <option value="3">Left</option>
-          <option value="4">Right</option>
-        </select>
-        <div className="tooltip-container">
-          <button
-            className="button"
-            onMouseLeave={this.setDownloadContent}
-            onMouseEnter={this.setDownloadIcon}
-          >
-            {this.state.content}
-          </button>
-          <div className={directions.tooltipDir}>
-            <div className="tooltip-text">Click here to download</div>
-            <div className={directions.arrowDir}></div>
-          </div>
-        </div>
+        <h1>Tooltip Design</h1>
+        <Select
+          selectRef={this.selectRef}
+          handleSelectChange={this.handleSelectChange}
+        />
+        <Button
+          tooltipRef={this.tooltipRef}
+          direction={this.state.direction}
+          setMouseLeave={this.setMouseLeave}
+          setMouseEnter={this.setMouseEnter}
+          getCurrentDirections={this.getCurrentDirections}
+          content={this.state.content}
+        />
       </div>
     );
   }
