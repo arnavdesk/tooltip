@@ -1,6 +1,7 @@
 # Tooltip
 
 ## View this app at : https://arnavdesk.github.io/tooltip/
+#### Techstack : HTML, CSS, JS, ReactJs
 
 ## Preview
 
@@ -14,7 +15,7 @@
 3. Navigate to Project Directory by :
 
 ```
-cd iPod-Classic
+cd tooltip
 ```
 
 4. run following commands :
